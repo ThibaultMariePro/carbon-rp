@@ -7,11 +7,11 @@ EXECUTED="\e[3;95m"
 
 NC='\033[0m' # No Color
 base=`basename ${PWD}`
-crpf="carbonRP_Env"
-echo -e ${INFOMSG}Execute me from /carbonRP_Env, a\'ight ?${NC}
+crpf="carbon-rp_env"
+echo -e ${INFOMSG}Execute me from /carbon-rp_env, a\'ight ?${NC}
 echo -e ${INFOMSG}here is ${base}${NC}
 
-if [[ "$base" == "$mtf" ]];then
+if [[ "$base" == "$crpf" ]];then
     echo -e ${INFOMSG}This script will install everything QoL${NC}
     sudo apt-get update
     echo -e ${EXECUTED}"Executed:"${COMMAND}"sudo apt-get update"${NC}
@@ -33,6 +33,6 @@ if [[ "$base" == "$mtf" ]];then
     echo -e ${INFOMSG}Well done master !${NC}
     exit 0
 else
-    echo -e ${ERRORMSG}HEY YO execute me from /carbonRP_Env, a\'ight !${NC}
+    echo -e ${ERRORMSG}HEY YO execute me from /carbon-rp_env, a\'ight !${NC}
     exit 1
 fi
