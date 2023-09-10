@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  mariadb:
+    container_name: carbonRP_mariadb
+    image: mariadb:10.6
+    restart: always
+    env_file: env/db.env
+    networks:
+      - carbonRP_network
+    ports: 
+      - 3306:3306
+    volumes: 
+      - carbonRPdataDB:/var/lib/mysql
+  symfony:
+    container_name: carbonRP_symfony_core
+    image: bitnami/symfony:6.3
+    env_file: env/symfony.env
+    ports:
+      - 8000:8000
+    volumes: 
+      - '../carbonRP-back-symfony/app:/app'
+    networks:
+      - carbonRP_network
+    depends_on: 
+      - mariadb
+  # nginx:
+  #   container_name: MT_nginx
+  #   image: nginx:stable
+  #   ports:
+  #     - '80:80'
+  #   restart: unless-stopped
+  #   networks:
+  #     - moneytalk_network
+  # reactjs:
+  #   container_name: MT_react_js
+  #   build:
+  #     context: ../MoneyTalk-front-reactJS
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - moneytalk_network
+  #   volumes:
+  #     - '../MoneyTalk-front-reactJS/app:/app'
+  #   ports:
+  #     - '3000:3000'
+  #   restart: unless-stopped
+
+volumes:
+  carbonRPdataDB:
+networks:
+  carbonRP_network:
