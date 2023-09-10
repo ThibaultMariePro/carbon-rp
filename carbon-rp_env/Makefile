@@ -7,7 +7,7 @@ NC = \033[0m
 DC = docker compose
 DCYML = docker-compose-dev.yml
 EXEC = docker exec
-CRPE = carbonRP_Env
+CRPE = carbon-rp_env
 
 .DEFAULT_GOAL := help
 .SILENT :
@@ -63,14 +63,14 @@ downup:
 	make up
 .PHONY: downup
 
-## open a bash terminal in carbonRP_symfony_core container
+## open a bash terminal in carbon-rp_symfony_core container
 sfbash:
-	$(EXEC) -it carbonRP_symfony_core bash
+	$(EXEC) -it carbon-rp_symfony_core bash
 .PHONY: sfbash
 
-## open a bash terminal in carbonRP_mariadb container
+## open a bash terminal in carbon-rp_mariadb container
 mariabash:
-	$(EXEC) -it carbonRP_mariadb bash
+	$(EXEC) -it carbon-rp_mariadb bash
 .PHONY: mariabash
 
 ## git pull that repo yo

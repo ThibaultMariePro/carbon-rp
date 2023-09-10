@@ -2,26 +2,26 @@ version: '3.9'
 
 services:
   mariadb:
-    container_name: carbonRP_mariadb
+    container_name: carbon-rp_mariadb
     image: mariadb:10.6
     restart: always
     env_file: env/db.env
     networks:
-      - carbonRP_network
+      - carbon-rp_network
     ports: 
       - 3306:3306
     volumes: 
-      - carbonRPdataDB:/var/lib/mysql
+      - carbon-rp_DB:/var/lib/mysql
   symfony:
-    container_name: carbonRP_symfony_core
+    container_name: carbon-rp_symfony_core
     image: bitnami/symfony:6.3
     env_file: env/symfony.env
     ports:
       - 8000:8000
     volumes: 
-      - '../carbonRP-back-symfony/app:/app'
+      - '../carbon-rp-back-symfony/app:/app'
     networks:
-      - carbonRP_network
+      - carbon-rp_network
     depends_on: 
       - mariadb
   # nginx:
@@ -46,6 +46,6 @@ services:
   #   restart: unless-stopped
 
 volumes:
-  carbonRPdataDB:
+  carbon-rp_DB:
 networks:
-  carbonRP_network:
+  carbon-rp_network:
