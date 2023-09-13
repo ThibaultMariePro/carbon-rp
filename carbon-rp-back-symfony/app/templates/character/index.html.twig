@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Character index{% endblock %}
+
+{% block body %}
+    {{ include('blocks/navMenu.html.twig') }}
+    
+    <h1>Character index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Surname</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for character in characters %}
+            <tr>
+                <td>{{ character.id }}</td>
+                <td>{{ character.firstname }}</td>
+                <td>{{ character.lastname }}</td>
+                <td>{{ character.surname }}</td>
+                <td>
+                    <a href="{{ path('app_character_show', {'id': character.id}) }}">show</a>
+                    <a href="{{ path('app_character_edit', {'id': character.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_character_new') }}">Create new</a>
+{% endblock %}
