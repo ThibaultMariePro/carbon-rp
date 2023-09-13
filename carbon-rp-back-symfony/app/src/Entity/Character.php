@@ -34,9 +34,13 @@ class Character
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?Game $game = null;
 
+    #[ORM\ManyToMany(targetEntity: Inventory::class, mappedBy: 'owner')]
+    private Collection $inventories;
+
     public function __construct()
     {
         $this->characterSheets = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,6 +141,33 @@ class Character
     public function setGame(?Game $game): static
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inventory>
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): static
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories->add($inventory);
+            $inventory->addOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): static
+    {
+        if ($this->inventories->removeElement($inventory)) {
+            $inventory->removeOwner($this);
+        }
 
         return $this;
     }

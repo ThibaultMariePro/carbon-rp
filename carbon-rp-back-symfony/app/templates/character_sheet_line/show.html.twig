@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CharacterSheetLine{% endblock %}
+
+{% block body %}
+    <h1>CharacterSheetLine</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ character_sheet_line.id }}</td>
+            </tr>
+            <tr>
+                <th>LineKey</th>
+                <td>{{ character_sheet_line.lineKey }}</td>
+            </tr>
+            <tr>
+                <th>LineValue</th>
+                <td>{{ character_sheet_line.lineValue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_character_sheet_line_index') }}">back to list</a>
+
+    <a href="{{ path('app_character_sheet_line_edit', {'id': character_sheet_line.id}) }}">edit</a>
+
+    {{ include('character_sheet_line/_delete_form.html.twig') }}
+{% endblock %}

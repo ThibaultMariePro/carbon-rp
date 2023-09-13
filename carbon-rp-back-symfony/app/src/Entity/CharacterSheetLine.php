@@ -19,6 +19,9 @@ class CharacterSheetLine
     #[ORM\Column(length: 255)]
     private ?string $lineValue = null;
 
+    #[ORM\ManyToOne(inversedBy: 'characterSheetLines')]
+    private ?CharacterSheet $relatedCharacterSheet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class CharacterSheetLine
     public function setLineValue(string $lineValue): static
     {
         $this->lineValue = $lineValue;
+
+        return $this;
+    }
+
+    public function getRelatedCharacterSheet(): ?CharacterSheet
+    {
+        return $this->relatedCharacterSheet;
+    }
+
+    public function setRelatedCharacterSheet(?CharacterSheet $relatedCharacterSheet): static
+    {
+        $this->relatedCharacterSheet = $relatedCharacterSheet;
 
         return $this;
     }

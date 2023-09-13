@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharacterSheetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterSheetRepository::class)]
@@ -30,6 +32,14 @@ class CharacterSheet
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'relatedCharacterSheet', targetEntity: CharacterSheetLine::class)]
+    private Collection $characterSheetLines;
+
+    public function __construct()
+    {
+        $this->characterSheetLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +114,36 @@ class CharacterSheet
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CharacterSheetLine>
+     */
+    public function getCharacterSheetLines(): Collection
+    {
+        return $this->characterSheetLines;
+    }
+
+    public function addCharacterSheetLine(CharacterSheetLine $characterSheetLine): static
+    {
+        if (!$this->characterSheetLines->contains($characterSheetLine)) {
+            $this->characterSheetLines->add($characterSheetLine);
+            $characterSheetLine->setRelatedCharacterSheet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterSheetLine(CharacterSheetLine $characterSheetLine): static
+    {
+        if ($this->characterSheetLines->removeElement($characterSheetLine)) {
+            // set the owning side to null (unless already changed)
+            if ($characterSheetLine->getRelatedCharacterSheet() === $this) {
+                $characterSheetLine->setRelatedCharacterSheet(null);
+            }
+        }
 
         return $this;
     }

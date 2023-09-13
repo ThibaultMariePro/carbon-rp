@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CharacterSheetLine index{% endblock %}
+
+{% block body %}
+    <h1>CharacterSheetLine index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LineKey</th>
+                <th>LineValue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for character_sheet_line in character_sheet_lines %}
+            <tr>
+                <td>{{ character_sheet_line.id }}</td>
+                <td>{{ character_sheet_line.lineKey }}</td>
+                <td>{{ character_sheet_line.lineValue }}</td>
+                <td>
+                    <a href="{{ path('app_character_sheet_line_show', {'id': character_sheet_line.id}) }}">show</a>
+                    <a href="{{ path('app_character_sheet_line_edit', {'id': character_sheet_line.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_character_sheet_line_new') }}">Create new</a>
+{% endblock %}
